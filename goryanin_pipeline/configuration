@@ -1,0 +1,31 @@
+# number of cpu
+cpu_max=24
+
+# load seqeunce directory
+dir_seq=$HOME/metagenome_mfc/
+
+# program_directory
+dir_fastqc=$HOME/bin/software/FastQC/fastqc
+dir_printseq=$HOME/bin/software/filter/prinseq-lite-0.20.4/prinseq-lite.pl
+
+# taxonomy assignment tool
+taxonomy_level=5
+dir_metaxa=$HOME/bin/software/taxonomy/Metaxa2_2.1.3/metaxa2
+dir_metaxa2_ttt=$HOME/bin/software/taxonomy/Metaxa2_2.1.3/metaxa2_ttt
+dir_krona_vis=ktImportText
+
+# assembly tool
+dir_SPAdes=$HOME/bin/software/assembler/SPAdes-3.7.1-Linux/bin/spades.py
+
+# bining
+dir_fq2fa=fq2fa.py
+dir_MetaAnnotator=$HOME/bin/software/bining/MetaAnnotator/bin/MetaAnnotator
+dir_MetaAnnotator_bin=$HOME/bin/software/bining/MetaAnnotator/bin/
+
+# Gene call tool
+dir_FragGeneScan=$HOME/bin/software/gene_calling/FragGeneScan1.30/FragGeneScan
+
+# Annotation tool
+dir_split_fasta=split_fasta.py
+nodes_num=38
+dir_InterProScan=$HOME/bin/software/annotation/interproscan-5.18-57.0/interproscan.sh
