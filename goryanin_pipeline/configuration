@@ -1,31 +1,107 @@
+
+# ============================ Input file configuation ================================
+# load seqeunce directory
+dir_seq=/work/GoryaninU/golf/data/mfc_real
+
+# # input file name
+# list_fa_file=(
+# 	"GO-EL-01_S1_L001_R1_001.fastq,GO-EL-01_S1_L001_R2_001.fastq" 
+# 	# "GO-EL-02_S2_L001_R1_001.fastq,GO-EL-02_S2_L001_R2_001.fastq" 
+# 	# "GO-EL-03_S3_L001_R1_001.fastq,GO-EL-03_S3_L001_R2_001.fastq"
+# )
+
+# # input file short name
+# list_fa_short_name=(
+# 	"GO01S01L001"
+# 	"GO02S02L001"
+# 	"GO03S03L001"
+# )
+
+# ========================== Program running parameter ================================
 # number of cpu
 cpu_max=24
 
-# load seqeunce directory
-dir_seq=$HOME/metagenome_mfc/
+# Running step // Please fill Yes or No (Y/N)
+step_0_check_quality=N
+step_1_filtering=Y
+step_2_taxonomy_assigning=N
+step_3_assembling=N
+step_3_1_coassembling=N
+step_3_2_reassembling=N		# Constructing this step
+step_4_gene_calling=N
+step_5_annotating=N 		# Will be improve this step
+step_6_visualizing=N  		# will be doing
 
-# program_directory
-dir_fastqc=$HOME/bin/software/FastQC/fastqc
-dir_printseq=$HOME/bin/software/filter/prinseq-lite-0.20.4/prinseq-lite.pl
 
-# taxonomy assignment tool
-taxonomy_level=5
-dir_metaxa=$HOME/bin/software/taxonomy/Metaxa2_2.1.3/metaxa2
-dir_metaxa2_ttt=$HOME/bin/software/taxonomy/Metaxa2_2.1.3/metaxa2_ttt
-dir_krona_vis=ktImportText
+# ============================ Output file configuration ==============================
+# output directory name
+dir_out=/work/GoryaninU/golf
+dir_out_qc=0_seq_qc
+dir_out_fread=1_seq_filtered
+dir_out_taxa=2_taxonomy
+dir_out_assem=3_assembled
+dir_out_co_assem=3_coassembled
+dir_out_bining=3_1_bining
+dir_out_cgene=4_gene_call
+dir_out_anno=5_annotation
 
-# assembly tool
-dir_SPAdes=$HOME/bin/software/assembler/SPAdes-3.7.1-Linux/bin/spades.py
 
-# bining
-dir_fq2fa=fq2fa.py
-dir_MetaAnnotator=$HOME/bin/software/bining/MetaAnnotator/bin/MetaAnnotator
-dir_MetaAnnotator_bin=$HOME/bin/software/bining/MetaAnnotator/bin/
+# ================ Program directory and parameters configuration ====================
 
-# Gene call tool
-dir_FragGeneScan=$HOME/bin/software/gene_calling/FragGeneScan1.30/FragGeneScan
+# Quality checking
+dir_fastqc=/apps/unit/GoryaninU/software/FastQC/fastqc
 
-# Annotation tool
+
+# ---------- Trimming read configuration ---------------------------------------------
+dir_trimmomatic=/apps/unit/GoryaninU/software/filter/Trimmomatic-0.36/trimmomatic-0.36.jar
+# Config read trimming parameter
+p_trimming_LEADING=3            # Remove leading low quality or N bases (below quality 3) (LEADING:3)
+p_trimming_TRAILING=3           # Remove trailing low quality or N bases (below quality 3) (TRAILING:3)
+p_trimming_SLIDINGWINDOW=4:15   # Scan the read with a 4-base wide sliding window, cutting when the average quality per base drops below 15 (SLIDINGWINDOW:4:15)
+p_trimming_MINLEN=36            # Drop reads below the 36 bases long (MINLEN:36)
+
+
+# ---------- taxonomy assignment configuration ---------------------------------------
+dir_metaxa=/apps/unit/GoryaninU/software/taxonomy/Metaxa2_2.1.3/metaxa2
+dir_metaxa2_ttt=/apps/unit/GoryaninU/software/taxonomy/Metaxa2_2.1.3/metaxa2_ttt
+# config taxonomy parameter
+p_taxonomy_identity=0,60,70,75,85,90,97 # Sets the percent identity cutoff to be classified at a certain taxonomic level
+                                        # Order of the values is: Kingdom/Domain,Phylum,Class,Order,Family,Genus,Species
+                                        # Default values are: 0,60,70,75,85,90,97
+p_taxonomy_organism=a,b         # {b, bacteria; a, archaea; e, eukaryota; m, mitochondrial; c, chloroplast; A, all; o, other} : 
+                                # Profile set to use for the search (comma-separated), default is all
+p_taxonomy_match=5              # Number of sequence matches to consider for classification, default = 5
+# visualization configuration
+dir_krona_vis=/apps/unit/GoryaninU/software/visualization/KronaTools-2.6.1/bin/ktImportText
+p_taxonomy_level=7              # Taxonomic level for performing inference, Default is 7 (species level).
+                                # (1 = domain, 2 = phylum, 3 = class, 4 = order, 5 = family, 6 = genus, 7 = species)
+
+dir_MetaPlnAn=/apps/unit/GoryaninU/software/taxonomy/metaphlan2/metaphlan2.py
+export mpa_dir=/apps/unit/GoryaninU/software/taxonomy/metaphlan2/
+
+
+
+
+
+
+
+# ---------- assembly configuration -------------------------------------------------
+dir_SPAdes=/apps/unit/GoryaninU/software/assembler/SPAdes-3.8.2/bin/metaspades.py
+dir_metaQuast=/apps/unit/GoryaninU/software/assembler/quast-4.1/metaquast.py
+
+# ---------- bining -----------------------------------------------------------------
+# dir_fq2fa=fq2fa.py
+# dir_MetaAnnotator=/apps/unit/GoryaninU/software/bining/MetaAnnotator/bin/MetaAnnotator
+# dir_MetaAnnotator_bin=/apps/unit/GoryaninU/software/bining/MetaAnnotator/bin/
+
+dir_MaxBin=/apps/unit/GoryaninU/software/bining/MaxBin-2.2/run_MaxBin.pl
+
+
+
+# ---------- Gene call tool --------------------------------------------------------
+dir_FragGeneScan=/apps/unit/GoryaninU/software/gene_calling/FragGeneScan1.30/FragGeneScan
+
+# ---------- Annotation tool -------------------------------------------------------
 dir_split_fasta=split_fasta.py
 nodes_num=38
-dir_InterProScan=$HOME/bin/software/annotation/interproscan-5.18-57.0/interproscan.sh
+dir_InterProScan=/apps/unit/GoryaninU/software/annotation/interproscan-5.18-57.0/interproscan.sh
