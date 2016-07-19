@@ -3,29 +3,16 @@
 # load seqeunce directory
 dir_seq=/work/GoryaninU/golf/data/mfc_real
 
-# # input file name
-# list_fa_file=(
-# 	"GO-EL-01_S1_L001_R1_001.fastq,GO-EL-01_S1_L001_R2_001.fastq" 
-# 	# "GO-EL-02_S2_L001_R1_001.fastq,GO-EL-02_S2_L001_R2_001.fastq" 
-# 	# "GO-EL-03_S3_L001_R1_001.fastq,GO-EL-03_S3_L001_R2_001.fastq"
-# )
-
-# # input file short name
-# list_fa_short_name=(
-# 	"GO01S01L001"
-# 	"GO02S02L001"
-# 	"GO03S03L001"
-# )
 
 # ========================== Program running parameter ================================
 # number of cpu
 cpu_max=24
 
 # Running step // Please fill Yes or No (Y/N)
-step_0_check_quality=N
+step_0_check_quality=Y
 step_1_filtering=Y
-step_2_taxonomy_assigning=N
-step_3_assembling=N
+step_2_taxonomy_assigning=Y
+step_3_assembling=Y
 step_3_1_coassembling=N
 step_3_2_reassembling=N		# Constructing this step
 step_4_gene_calling=N
